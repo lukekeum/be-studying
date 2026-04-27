@@ -3,6 +3,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 
 import { errorHandler } from './middlewares/errorHandler.js';
+import { rootRouter } from './routes/index.js';
 
 export function createApp() {
   const app = express();
@@ -12,6 +13,8 @@ export function createApp() {
   app.use(express.json());
   app.use(cors({ origin: true, credentials: true }));
   app.use(morgan());
+
+  app.use('/', rootRouter);
 
   app.use(errorHandler);
 
