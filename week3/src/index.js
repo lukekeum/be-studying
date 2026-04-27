@@ -1,3 +1,7 @@
-async function bootstrap() {}
+import './config/dotenv';
+import { bootstrap } from './bootstrap';
 
-bootstrap();
+bootstrap().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
