@@ -1,4 +1,5 @@
-import { createApp } from './app';
+import { createApp } from './app.js';
+import { Database } from './database.class.js';
 
 export async function bootstrap() {
   const app = createApp();
@@ -6,5 +7,7 @@ export async function bootstrap() {
 
   await database.setup();
 
-  app.listen(app.get('port'));
+  app.listen(app.get('port'), () => {
+    console.log(`Server running on port ${app.get('port')}`);
+  });
 }
