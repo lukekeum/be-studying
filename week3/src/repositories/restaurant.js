@@ -37,7 +37,10 @@ export class RestaurantRepository {
     const data = await this._readData();
     const index = data.findIndex((item) => item.name == name);
     if (index === -1) {
-      throw new CustomError('데이터베이스에서 데이터를 찾을 수 없습니다', 404);
+      throw new CustomError({
+        message: '데이터베이스에서 데이터를 찾을 수 없습니다',
+        statusCode: 404,
+      });
     }
     data[index] = { ...data[index], ...updatedItem };
     await this._writeData(data);
