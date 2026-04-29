@@ -1,5 +1,5 @@
 import { createApp } from './app.js';
-import { Database } from './database.class.js';
+import { Database } from './database.js';
 
 export async function bootstrap() {
   const app = createApp();
