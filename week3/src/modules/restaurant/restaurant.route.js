@@ -2,10 +2,13 @@ import { Router } from 'express';
 import { RestaurantController } from './restaurant.controller.js';
 import { RestaurantService } from './restaurant.service.js';
 import { asyncHandler } from '../../utils/asyncHandler.js';
+import { RestaurantRepository } from '../../repositories/restaurant.js';
 
 export const restaurantRouter = Router();
 
-const service = new RestaurantService();
+const restaurantRepository = new RestaurantRepository();
+
+const service = new RestaurantService(restaurantRepository);
 const controller = new RestaurantController(service);
 
 restaurantRouter.get(
@@ -17,10 +20,12 @@ restaurantRouter.post(
   asyncHandler(controller.createRestaurant.bind(controller)),
 );
 restaurantRouter.put(
-  '/:id',
+  '/:name',
+  controller.hasNameParam.bind(controller),
   asyncHandler(controller.updateRestaurant.bind(controller)),
 );
 restaurantRouter.delete(
-  '/:id',
+  '/:name',
+  controller.hasNameParam.bind(controller),
   asyncHandler(controller.deleteRestaurant.bind(controller)),
 );
