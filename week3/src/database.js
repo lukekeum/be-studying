@@ -3,7 +3,7 @@ import fs from 'fs';
 import { getDBPath } from './utils/database/index.js';
 
 export class Database {
-  async setup() {
+  setup() {
     const exists = fs.existsSync(getDBPath());
 
     if (!exists) {
