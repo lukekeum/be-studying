@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-import { getDBPath } from './utils/database';
+import { getDBPath } from '../../utils/database';
 
 export class Database {
   setup() {
