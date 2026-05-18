@@ -1,7 +1,8 @@
 import fs from 'fs/promises';
-import { getDBPath } from '../../utils/database';
-import { HttpException } from '@nestjs/common';
+import { getDBPath } from '../utils/database';
+import { HttpException, Injectable } from '@nestjs/common';
 
+@Injectable()
 export class RestaurantRepository {
   private async readData() {
     const fileData = await fs.readFile(getDBPath(), { encoding: 'utf-8' });
