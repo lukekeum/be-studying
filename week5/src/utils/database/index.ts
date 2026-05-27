@@ -1,1 +1,0 @@
-export { getDBPath } from './getDBPath';
