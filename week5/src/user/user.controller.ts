@@ -1,11 +1,16 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Req, Res } from '@nestjs/common';
 import { SignUpDTO } from './dto/signUp.dto';
 import { UserService } from './user.service';
 import { SignInDTO } from './dto/signIn.dto';
+import express from 'express';
+import { AuthService } from 'src/common/security/auth.service';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Post('signup')
   signupUser(@Body() body: SignUpDTO) {
@@ -13,7 +18,34 @@ export class UserController {
   }
 
   @Post('signin')
-  signinUser(@Body() body: SignInDTO) {
-    return this.userService.signInUser(body);
+  async signinUser(
+    @Body() body: SignInDTO,
+    @Res({ passthrough: true }) res: express.Response,
+  ) {
+    const [accessToken, refreshToken] = await this.userService.signInUser(body);
+
+    res.setHeader('Authorization', `Bearer ${accessToken}`);
+    res.cookie('accessToken', accessToken, { httpOnly: true });
+    res.cookie('refreshToken', refreshToken, { httpOnly: true });
+
+    return {
+      accessToken,
+    };
+  }
+
+  @Post('refresh')
+  async refresh(
+    @Req() req: express.Request,
+    @Res({ passthrough: true }) res: express.Response,
+  ) {
+    const token = req.cookies.refreshToken;
+
+    const [accessToken, refreshToken] = await this.authService.refresh(token);
+
+    res.setHeader('Authorization', `Bearer ${accessToken}`);
+    res.cookie('accessToken', accessToken, { httpOnly: true });
+    res.cookie('refreshToken', refreshToken, { httpOnly: true });
+
+    return { accessToken };
   }
 }

@@ -9,12 +9,14 @@ import { UserRepository } from './repository/user.repository';
 import { Prisma } from '@prisma/client';
 import { SignInDTO } from './dto/signIn.dto';
 import { PasswordService } from 'src/common/security/password.service';
+import { AuthService } from 'src/common/security/auth.service';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly passwordService: PasswordService,
+    private readonly authService: AuthService,
   ) {}
 
   async signUpUser({ name, displayName, password }: SignUpDTO) {
@@ -53,7 +55,7 @@ export class UserService {
         throw new UnauthorizedException('비번번호가 일치하지 않습니다');
       }
 
-      return user; // TODO: JWT 및 쿠키 던지기
+      return this.authService.generateTokens(user.id);
     } catch (e) {
       throw e;
     }
