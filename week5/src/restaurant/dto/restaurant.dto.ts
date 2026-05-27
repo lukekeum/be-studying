@@ -8,7 +8,8 @@ export class CreateRestaurantDto {
   @IsString()
   address!: string;
 
-  @IsPhoneNumber()
+  // @IsPhoneNumber()
+  // TODO: 휴대폰 번호 검증 로직 수정
   phone!: string;
 }
 
