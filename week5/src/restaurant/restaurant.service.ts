@@ -15,7 +15,9 @@ export class RestaurantService {
   }
 
   async getAll() {
-    return await this.restaurantRepository.findAll();
+    return await this.prisma.restaurant.findMany({
+      select: { name: true, phone: true, address: true },
+    });
   }
 
   async getByName(name: string) {

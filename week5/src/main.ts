@@ -1,12 +1,13 @@
+import 'dotenv/config'; // TODO: ConfigService 추가하기
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Database } from './common/database';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const database = new Database();
+  // const database = new Database();
 
-  database.setup();
+  // database.setup();
 
   const app = await NestFactory.create(AppModule);
 
