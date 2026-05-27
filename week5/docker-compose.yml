@@ -1,0 +1,13 @@
+version: "3"
+services:
+    database:
+        image: postgres:latest
+        container_name: be-studying
+        restart: always
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_USER: "study"
+            POSTGRES_PASSWORD: "study"
+        volumes:
+            - ./db:/var/lib/postgresql/data
