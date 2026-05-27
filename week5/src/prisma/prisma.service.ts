@@ -7,18 +7,19 @@ import {
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class PrismaService
   extends PrismaClient
   implements OnModuleInit, OnModuleDestroy
 {
-  constructor() {
+  constructor(private readonly configService: ConfigService) {
     const pool = new Pool({
-      connectionString: process.env.DATABASE_URL!,
+      connectionString: configService.getOrThrow('DATABASE_URL'),
     });
 
-    const adapter = new PrismaPg(pool); // TODO: ConfigService 사용해 'Database URL' 처리하기
+    const adapter = new PrismaPg(pool);
     super({ adapter });
   }
 

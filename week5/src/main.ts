@@ -1,5 +1,3 @@
-import 'dotenv/config'; // TODO: ConfigService 추가하기
-
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
