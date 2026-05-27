@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from 'src/common/prisma/prisma.service';
 import { SignUpDTO } from 'src/user/dto/signUp.dto';
 import { userSelectWithoutPassword, userAuthSelect } from './user.select';
 

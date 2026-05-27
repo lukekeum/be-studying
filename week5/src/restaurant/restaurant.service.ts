@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CreateRestaurantDto, UpdateRestaurantDto } from './dto/restaurant.dto';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../common/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 
 export const restaurantSelect = {
