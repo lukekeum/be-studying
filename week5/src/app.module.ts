@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { RestaurantModule } from './restaurant/restaurant.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
+import { UserModule } from './user/user.module';
+import { RatingModule } from './rating/rating.module';
 
 @Module({
   imports: [
@@ -12,6 +14,8 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    UserModule,
+    RatingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
