@@ -18,4 +18,31 @@ model Restaurant {
   phone     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  ratings Rating[]
+}
+
+model User {
+  id          String   @id @default(uuid())
+  displayName String   @unique
+  name        String   @unique
+  password    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  ratings Rating[]
+}
+
+model Rating {
+  id      String  @id @default(uuid())
+  score   Int
+  comment String?
+
+  restaurantName String
+  userId         String
+
+  restaurant Restaurant @relation(fields: [restaurantName], references: [name])
+  user       User       @relation(fields: [userId], references: [id])
+
+  @@unique([userId, restaurantName])
 }
