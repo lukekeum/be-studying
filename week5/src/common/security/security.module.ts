@@ -4,10 +4,11 @@ import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { PrismaModule } from '../prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
+import { JwtGuard } from './guard/jwt.guard';
 
 @Module({
-  providers: [PasswordService, AuthService],
-  exports: [PasswordService, AuthService],
+  providers: [PasswordService, AuthService, JwtGuard],
+  exports: [PasswordService, AuthService, JwtGuard],
   imports: [
     JwtModule.register({
       global: true,
